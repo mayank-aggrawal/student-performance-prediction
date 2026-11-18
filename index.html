@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Student Performance Prediction System - BCA Web Technology Project">
+  <title>EduPredict | Student Performance System</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main id="authView" class="auth-shell">
+    <section class="auth-brand">
+      <div class="brand-mark">EP</div>
+      <p class="eyebrow">ACADEMIC ANALYTICS</p>
+      <h1>Understand progress.<br><span>Support success.</span></h1>
+      <p class="muted">A student performance dashboard for organizing academic records and estimating results.</p>
+      <div class="auth-feature"><span>✓</span> Student records in one place</div>
+      <div class="auth-feature"><span>✓</span> Attendance and marks overview</div>
+      <div class="auth-feature"><span>✓</span> Transparent score estimates</div>
+    </section>
+    <section class="auth-card">
+      <div class="brand-mark small">EP</div>
+      <p class="eyebrow">WELCOME TO EDUPREDICT</p>
+      <h2 id="authHeading">Sign in to your account</h2>
+      <p class="muted" id="authSubheading">Enter your account details to continue.</p>
+      <form id="authForm">
+        <label for="authEmail">Email address</label>
+        <input id="authEmail" type="email" autocomplete="email" placeholder="you@example.com" required>
+        <label for="authPassword">Password</label>
+        <input id="authPassword" type="password" autocomplete="current-password" minlength="6" placeholder="At least 6 characters" required>
+        <button class="btn primary full" id="authSubmit" type="submit">Sign in <span>→</span></button>
+      </form>
+      <p class="auth-switch" id="authSwitchText">New here? <button class="text-button" id="toggleAuth" type="button">Create an account</button></p>
+      <p class="form-message" id="authMessage" role="status"></p>
+      <p class="tiny-note">Demo project: create your own account. Do not use a password you use elsewhere.</p>
+    </section>
+  </main>
+
+  <main id="appView" class="app-shell hidden">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="EduPredict home"><span class="brand-mark">EP</span><span>EduPredict<small>STUDENT ANALYTICS</small></span></a>
+      <p class="nav-label">WORKSPACE</p>
+      <button class="nav-item active" data-page="overview"><span>▦</span> Overview</button>
+      <button class="nav-item" data-page="students"><span>♙</span> Students</button>
+      <button class="nav-item" data-page="prediction"><span>⌁</span> Prediction tool</button>
+      <div class="sidebar-bottom">
+        <div class="sidebar-help"><div class="help-icon">i</div><div><b>Academic support</b><small>Estimates guide discussion, not decisions.</small></div></div>
+        <button class="nav-item" id="logoutBtn"><span>↪</span> Sign out</button>
+      </div>
+    </aside>
+
+    <section class="main-area">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Toggle menu">☰</button>
+        <div><p class="eyebrow">STUDENT PERFORMANCE</p><h2 id="pageHeading">Overview</h2></div>
+        <div class="user-pill"><div class="avatar" id="userAvatar">U</div><div><b id="userEmail">User</b><small>Signed in</small></div></div>
+      </header>
+
+      <section class="page active-page" id="page-overview">
+        <div class="welcome-row">
+          <div><h1>Your academic overview</h1><p class="muted">Track student records and identify where support may help.</p></div>
+          <button class="btn primary" data-go="students">＋ Add student</button>
+        </div>
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-top"><span>Total students</span><span class="stat-icon blue">♙</span></div><strong id="statStudents">0</strong><small class="muted">Records in your account</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Average estimate</span><span class="stat-icon purple">％</span></div><strong id="statAverage">—</strong><small class="muted">Across saved students</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Average attendance</span><span class="stat-icon green">✓</span></div><strong id="statAttendance">—</strong><small class="muted">Recorded attendance</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Needs support</span><span class="stat-icon orange">↗</span></div><strong id="statSupport">0</strong><small class="muted">Estimates below 50%</small></article>
+        </div>
+        <div class="content-grid">
+          <article class="panel">
+            <div class="panel-heading"><div><h3>Performance distribution</h3><p class="muted">Based on the current estimated score</p></div><span class="live-dot">LIVE</span></div>
+            <div id="distribution" class="distribution"><p class="muted">Add student records to see the distribution.</p></div>
+            <p class="chart-footnote">Categories are illustrative and can be adjusted for your institution.</p>
+          </article>
+          <article class="panel">
+            <div class="panel-heading"><div><h3>Prediction method</h3><p class="muted">Transparent weighted estimate</p></div></div>
+            <div class="formula-row"><span>Previous exam</span><b>40%</b></div><div class="formula-track"><span style="width:40%"></span></div>
+            <div class="formula-row"><span>Attendance</span><b>20%</b></div><div class="formula-track green-track"><span style="width:20%"></span></div>
+            <div class="formula-row"><span>Test marks</span><b>25%</b></div><div class="formula-track purple-track"><span style="width:25%"></span></div>
+            <div class="formula-row"><span>Assignments</span><b>15%</b></div><div class="formula-track orange-track"><span style="width:15%"></span></div>
+            <div class="info-note">This is a rule-based estimate, not a machine-learning model or a guaranteed result.</div>
+          </article>
+        </div>
+        <article class="panel table-panel">
+          <div class="panel-heading"><div><h3>Recent student records</h3><p class="muted">The latest records in your account</p></div><button class="text-button" data-go="students">View all →</button></div>
+          <div class="table-wrap"><table><thead><tr><th>Student</th><th>Attendance</th><th>Estimated score</th><th>Category</th></tr></thead><tbody id="recentRows"><tr><td colspan="4" class="empty-cell">No records yet. Add your first student.</td></tr></tbody></table></div>
+        </article>
+      </section>
+
+      <section class="page" id="page-students">
+        <div class="welcome-row"><div><h1>Student records</h1><p class="muted">Manage academic information stored in your cloud account.</p></div><button class="btn primary" id="addStudentBtn">＋ Add student</button></div>
+        <div class="panel">
+          <div class="toolbar"><input id="searchStudents" type="search" placeholder="Search by name, roll number, or course…"><span class="muted" id="studentCountLabel">0 records</span></div>
+          <div class="table-wrap"><table><thead><tr><th>Student</th><th>Roll number</th><th>Attendance</th><th>Estimated score</th><th>Category</th><th>Actions</th></tr></thead><tbody id="studentRows"><tr><td colspan="6" class="empty-cell">Loading records…</td></tr></tbody></table></div>
+        </div>
+        <p class="tiny-note">Use sample or consented academic data only. Do not enter sensitive personal information.</p>
+      </section>
+
+      <section class="page" id="page-prediction">
+        <div class="welcome-row"><div><h1>Performance prediction</h1><p class="muted">Enter academic percentages to calculate an estimated score.</p></div></div>
+        <div class="prediction-layout">
+          <article class="panel">
+            <div class="panel-heading"><div><h3>Academic inputs</h3><p class="muted">All values must be between 0 and 100.</p></div></div>
+            <form id="predictionForm" class="prediction-form">
+              <label>Student name<input id="pName" placeholder="e.g. Aarav Sharma" required maxlength="80"></label>
+              <label>Roll number<input id="pRoll" placeholder="e.g. BCA-001" required maxlength="30"></label>
+              <label>Course / class<input id="pCourse" placeholder="e.g. BCA" required maxlength="50"></label>
+              <div class="input-grid">
+                <label>Previous exam (%)<input id="pExam" type="number" min="0" max="100" value="75" required></label>
+                <label>Attendance (%)<input id="pAttendance" type="number" min="0" max="100" value="85" required></label>
+                <label>Test marks (%)<input id="pTest" type="number" min="0" max="100" value="70" required></label>
+                <label>Assignment (%)<input id="pAssignment" type="number" min="0" max="100" value="80" required></label>
+              </div>
+              <div class="button-row"><button class="btn secondary" type="button" id="calculateBtn">Calculate estimate</button><button class="btn primary" type="submit">Calculate &amp; save</button></div>
+            </form>
+          </article>
+          <article class="panel result-panel">
+            <div class="result-orb">↗</div><p class="eyebrow">ESTIMATED PERFORMANCE</p><div class="result-score" id="resultScore">—<small>%</small></div><div class="category-chip" id="resultCategory">Waiting for input</div><div class="result-meter"><span id="resultMeter"></span></div><p class="muted result-message" id="resultMessage">Enter the student's academic details and calculate an estimate.</p><div class="result-breakdown" id="resultBreakdown"></div><div class="info-note">For academic guidance only. This score is based on the displayed weights and should not be used as the sole basis for important decisions.</div>
+          </article>
+        </div>
+      </section>
+      <footer class="app-footer">EduPredict · BCA Web Technology Project · <span id="year"></span></footer>
+    </section>
+  </main>
+
+  <dialog id="studentDialog" class="student-dialog">
+    <form id="studentForm" method="dialog">
+      <div class="panel-heading"><div><p class="eyebrow">STUDENT DETAILS</p><h3 id="dialogTitle">Add student</h3></div><button type="button" class="icon-button" id="closeDialog" aria-label="Close">×</button></div>
+      <input type="hidden" id="editId">
+      <div class="dialog-grid">
+        <label>Student name<input id="sName" required maxlength="80" placeholder="Full name"></label>
+        <label>Roll number<input id="sRoll" required maxlength="30" placeholder="BCA-001"></label>
+        <label>Course / class<input id="sCourse" required maxlength="50" placeholder="BCA"></label>
+        <label>Previous exam (%)<input id="sExam" type="number" min="0" max="100" value="75" required></label>
+        <label>Attendance (%)<input id="sAttendance" type="number" min="0" max="100" value="85" required></label>
+        <label>Test marks (%)<input id="sTest" type="number" min="0" max="100" value="70" required></label>
+        <label>Assignment (%)<input id="sAssignment" type="number" min="0" max="100" value="80" required></label>
+      </div>
+      <p class="form-message" id="studentMessage" role="status"></p>
+      <div class="button-row"><button type="button" class="btn secondary" id="cancelDialog">Cancel</button><button type="submit" class="btn primary">Save student</button></div>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status"></div>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
